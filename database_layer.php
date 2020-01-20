@@ -8,20 +8,24 @@
 
 $link = mysqli_connect("192.168.200.79", "user", "user", "1131_vov");
 
-function fetch_articles($link)
+function fetch_articles($link, $category) // Получение списка статей, совпадающих по категории (или всех, если категории нет)
 {
-    mysqli_query($link, 'SELECT * FROM table_article');
+    // Нужно юзать джойны ----------------- v вот для этого пацана
+    $query = "SELECT id, title, intro, category_id, image_url FROM table_article";
+    if(isset($category))
+        $query .= "WHERE category_id = $category";
+    $result = mysqli_query($link, $query);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function fetch_categories($link)
+function fetch_categories($link) // Получение списка категорий
 {
-    mysqli_query($link, 'SELECT * FROM table_category');
+    $result = mysqli_query($link, 'SELECT * FROM table_category');
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function fetch_article($id,$link)
+function fetch_article($link,$id) // Получение текста статьи
 {
-
-    if(!isset($id))
-        return fetch_categories($link);
     $result = mysqli_query($link, "SELECT * FROM table_article WHERE id = $id");
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
