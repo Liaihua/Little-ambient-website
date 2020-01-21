@@ -6,7 +6,7 @@
  * Time: 12:28
  */
 
-include ('database_layer.php');
+include ('article_generator.php');
 ?>
 
 <!DOCTYPE html>
@@ -91,46 +91,24 @@ include ('database_layer.php');
     <div class="ambient_main">
         <aside class="float-right " style="padding: 0%;">
             Категории статей
-            <ul>
+            <ul style="display: flex">
                 <!-- Здесь будет вывод категорий с использованием format_categories() -->
+                <?php
+                    foreach (fetch_categories(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), 1) as $category) {
+                        format_category($category);
+                    }
+                ?>
 
             </ul>
         </aside>
         <article>
-            <?php echo var_dump(fetch_article(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), 2));?>
             <section style="padding: 10%">
-                <div class="card" style="background-color:#00000011;border:none; border-radius: 0%;">
-                    <img src="images/ambient-psybient.jpeg" class="card-img-top">
-                    <div class="card-body">
-                        <h4 class="card-title ambient_genre">Сайбиент</h4>
-                        <p class="card-text">Жанр, являющийся объединением эмбиента и психоделической музыки с
-                            сочетанием этнической музыки и New-age</p>
-                    </div>
-                </div>
-                <div class="card" style="background-color:#00000011; border:none; border-radius: 0%;">
-                    <img src="images/ambient-landscape.jpg" class="card-img-bottom">
-                    <div class="card-body">
-                        <h4 class="card-title ambient_genre">Этник-эмбиент</h4>
-                        <p class="card-text">Для него свойственно превалирование этнической музыки над электронной</p>
-                    </div>
-                </div>
-                <div class="card" style="background-color:#00000011; border:none; border-radius: 0%;">
-                    <img src="images/ambient-earth-blur.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h4 class="card-title ambient_genre">Спейс-эмбиент</h4>
-                        <p class="card-text">Глухие, далекие, синтетические звуки вместе с ритмичными проигрышами,
-                            создающие чувство бесконечности - не единственное, что можно сказать об этом жанре.</p>
-                    </div>
-                </div>
-                <div class="card" style="background-color: #00000011; border:none; border-radius: 0%;">
-                    <img class="card-img-top" src="images/ambient-city.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title ambient_genre">Дарк-эмбиент</h4>
-                        <p class="card-text">Порождение индустриальной культуры, которое отличается зацикливанием
-                            звукового отрезка с последующим наложением новых звуков, а также наличием заглушённых
-                            эхообразных отрывков</p>
-                    </div>
-                </div>
+                <?php
+                    foreach (fetch_articles(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), null) as $article) {
+                        format_article_card($article);
+                    }
+
+                ?>
             </section>
         </article>
         <!-- Здесь тоже будет код на ПХП -->
