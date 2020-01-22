@@ -94,7 +94,7 @@ include ('article_generator.php');
             <ul style="display: flex">
                 <!-- Здесь будет вывод категорий с использованием format_categories() -->
                 <?php
-                    foreach (fetch_categories(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), 1) as $category) {
+                    foreach (fetch_categories(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov')) as $category) {
                         format_category($category);
                     }
                 ?>
@@ -104,7 +104,7 @@ include ('article_generator.php');
         <article>
             <section style="padding: 10%">
                 <?php
-                    foreach (fetch_articles(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), null) as $article) {
+                    foreach (fetch_articles(mysqli_connect('192.168.200.79', 'user', 'user', '1131_vov'), $_GET["category_id"]) as $article) {
                         format_article_card($article);
                     }
 
